@@ -30,3 +30,10 @@ VALUES ('anotherNameName' , 150 , ROW ('matrosova', 59));
 
 select (address).flat_number as flat_number from "user";
 select * from "user" where (address).street='matrosova'
+
+-- function with composite parameters
+CREATE OR REPLACE FUNCTION increment_flat(address, _number integer) RETURNS integer as $$
+    SELECT $1.flat_number + $2
+    $$ LANGUAGE SQL;
+
+select increment_flat(ROW('first street', 2), 10);

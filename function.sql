@@ -22,12 +22,20 @@ END
 $$ LANGUAGE plpgsql;
 
 
-CREATE OR REPLACE FUNCTION get_users(user_id integer) RETURNS TABLE(id integer, name varchar(200)) AS $$
+CREATE OR REPLACE FUNCTION get_users(_user_id integer) RETURNS TABLE(
+    id integer,
+    name varchar(200),
+    message_id integer,
+    message_value varchar(200)
+    ) AS $$
 BEGIN
     RETURN QUERY
-        
+    select u.id as id, u.name as name, m.id as message_id, m.value as message_value
+    from "user" u
+    left join message m on u.id = m.user_id
+    where u.id = _user_id;
 END
 $$ LANGUAGE plpgsql;
 
 
-select * from my_function(5);
+select * from get_users(5);

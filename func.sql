@@ -43,4 +43,4 @@ CREATE OR REPLACE FUNCTION get_address(user_id integer) RETURNS address as $$
     SELECT address FROM "user" WHERE id=$1
     $$ LANGUAGE SQL ;
 
-select (get_address).street from get_address(8);
+select (get_address).* from get_address(8);

@@ -37,3 +37,10 @@ CREATE OR REPLACE FUNCTION increment_flat(address, _number integer) RETURNS inte
     $$ LANGUAGE SQL;
 
 select increment_flat(ROW('first street', 2), 10);
+
+-- function returning own type
+CREATE OR REPLACE FUNCTION get_address(user_id integer) RETURNS address as $$
+    SELECT address FROM "user" WHERE id=$1
+    $$ LANGUAGE SQL ;
+
+select (get_address).street from get_address(8);

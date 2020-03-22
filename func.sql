@@ -25,7 +25,8 @@ create type address as (
     flat_number integer
                        );
 
-INSERT INTO"user" (id, name, age, address)
-VALUES (100, 'anotherName' , 150 , ROW ('matrosova', 57));
+INSERT INTO"user" (name, age, address)
+VALUES ('anotherNameName' , 150 , ROW ('matrosova', 59));
 
 select (address).flat_number as flat_number from "user";
+select * from "user" where (address).street='matrosova'

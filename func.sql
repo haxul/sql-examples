@@ -44,3 +44,10 @@ CREATE OR REPLACE FUNCTION get_address(user_id integer) RETURNS address as $$
     $$ LANGUAGE SQL ;
 
 select (get_address).* from get_address(8);
+                                                               
+-- function wth out parameters
+CREATE OR REPLACE FUNCTION sum_in(x int, y int, OUT sum int, OUT mul int) AS $$
+        SELECT x + y, x * y;
+    $$ LANGUAGE SQL;
+
+select sum_in(5,2);

@@ -36,3 +36,18 @@ CREATE OR REPLACE FUNCTION find_user() RETURNS SETOF "user" AS $$
     $$ LANGUAGE plpgsql;
 
 select (find_user()).*;
+
+
+CREATE OR REPLACE FUNCTION ages() RETURNS int[] AS $$
+    DECLARE
+        ages_arr int[];
+        manager record;
+    begin
+        FOR manager IN SELECT age FROM "user"  WHERE age is not null LOOP
+            ages_arr:= array_append(ages_arr, manager.age);
+        end loop;
+        RETURN ages_arr;
+    end;
+    $$ LANGUAGE plpgsql;
+
+select ages();

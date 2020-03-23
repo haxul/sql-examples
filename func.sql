@@ -51,3 +51,6 @@ CREATE OR REPLACE FUNCTION sum_in(x int, y int, OUT sum int, OUT mul int) AS $$
     $$ LANGUAGE SQL;
 
 select sum_in(5,2);
+                                       
+                                       
+SELECT count(age), age FROM "user" GROUP BY (age) having age is not null;

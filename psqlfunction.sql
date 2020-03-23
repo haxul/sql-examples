@@ -25,3 +25,14 @@ CREATE OR REPLACE FUNCTION get_user(a int) RETURNS SETOF "user" AS $$
     $$ LANGUAGE plpgsql;
 
 select (get_user(5)).*;
+
+CREATE OR REPLACE FUNCTION find_user() RETURNS SETOF "user" AS $$
+    DECLARE
+        average_age real;
+    begin
+        select avg("user".age) into average_age from "user";
+        RETURN QUERY SELECT * FROM "user" WHERE age > average_age::int;
+    end;
+    $$ LANGUAGE plpgsql;
+
+select (find_user()).*;

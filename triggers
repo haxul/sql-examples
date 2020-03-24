@@ -1,1 +1,14 @@
 
+CREATE OR REPLACE FUNCTION update_user_timestamp() RETURNS trigger AS $$
+    begin
+        new.updated_last_time := now();
+        return new;
+    end;
+    $$ language plpgsql;
+
+
+CREATE TRIGGER employees_timestamp BEFORE INSERT OR UPDATE ON "user"
+FOR EACH ROW EXECUTE FUNCTION update_user_timestamp();
+
+
+UPDATE "user" set age=10 where id=11;

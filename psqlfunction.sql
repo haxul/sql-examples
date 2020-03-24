@@ -51,3 +51,33 @@ CREATE OR REPLACE FUNCTION ages() RETURNS int[] AS $$
     $$ LANGUAGE plpgsql;
 
 select ages();
+
+        
+CREATE OR REPLACE FUNCTION get_product(age int) RETURNS text AS $$
+    BEGIN
+        IF age > 50 THEN
+            RETURN 'old';
+        ELSIF age <= 50.0 AND age > 25.0 THEN
+            RETURN 'mature';
+        ELSE RETURN 'young';
+        end if;
+    end;
+    $$ LANGUAGE plpgsql;
+
+select get_product("user".age) from "user" group by (age);
+
+CREATE OR REPLACE PROCEDURE insert_user() AS $$
+    DECLARE
+        counter int;
+        _name varchar;
+        _age int;
+    BEGIN
+        FOR counter IN 1..100 LOOP
+            _name:= concat('user',CAST(counter AS VARCHAR));
+            _age:= random() * 100 + 1 AS RAND_10_80;
+            INSERT INTO "user" (name, age) VALUES (_name, _age);
+        END LOOP;
+    end;
+    $$ LANGUAGE plpgsql;
+
+

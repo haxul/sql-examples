@@ -15,3 +15,9 @@ UPDATE "user" set age=10 where id=11;
 
 select count(age), age from "user" group by age having count(*) > 10;
 select name, max(age) from "user" group by name having name='sergei';
+
+insert into books(book_info) values ('{"id" : 2, "title": "introduction to data mining", "author" : "any indus", "pages": [231,342]}');
+
+select book_info->'title' from books where CAST(book_info->'id' AS INT) >= 2;
+
+select book_info->'pages'->1 from books;

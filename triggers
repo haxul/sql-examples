@@ -21,3 +21,6 @@ insert into books(book_info) values ('{"id" : 2, "title": "introduction to data 
 select book_info->'title' from books where CAST(book_info->'id' AS INT) >= 2;
 
 select book_info->'pages'->1 from books;
+
+update books set book_info = book_info || '{"id":100}' where id=2;
+update books set book_info = book_info - 'title' where id=3;

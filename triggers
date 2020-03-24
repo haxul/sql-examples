@@ -12,3 +12,6 @@ FOR EACH ROW EXECUTE FUNCTION update_user_timestamp();
 
 
 UPDATE "user" set age=10 where id=11;
+
+select count(age), age from "user" group by age having count(*) > 10;
+select name, max(age) from "user" group by name having name='sergei';
